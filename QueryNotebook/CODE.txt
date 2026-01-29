@@ -1,0 +1,19 @@
+df_bronze = spark.read.format("delta").load(bronze_path)
+display(df_bronze)
+
+
+df_silver = spark.read.format("delta").load(silver_path)
+display(df_silver)
+
+df_gold = spark.read.format("delta").load(gold_path)
+df_gold.display()
+
+
+%sql
+CREATE OR REPLACE TABLE default.gold_orders_managed
+AS SELECT *FROM delta.`abfss://ecommerce@ecommercestoragee.dfs.core.windows.net/gold`
+
+
+
+
+SELECT * FROM gold_orders_managed;
